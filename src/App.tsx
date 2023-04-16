@@ -1,25 +1,41 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Routes, Route, BrowserRouter } from "react-router-dom"
 import './App.css';
+import HomePage from './components/pages/home/HomePage';
+import LoginPage from './components/pages/login/LoginPage';
+import NewPage from './components/pages/new/NewPage';
+import ListPage from './components/pages/list/ListPage';
+import SinglePage from './components/pages/single/SinglePage';
+import styled from 'styled-components'
+import { userInputs } from './components/formSource'
+
+const Main = styled.div`
+  
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<HomePage />} />
+            <Route path='login' element={<LoginPage />} />
+            <Route path='users'>
+              <Route index element={<ListPage />} />
+              <Route path=':userId' element={<SinglePage />} />
+              <Route path='new' element={<NewPage inputs={userInputs} title="Add New User" />} />
+            </Route>
+            <Route path='products'>
+              <Route index element={<ListPage />} />
+              <Route path=':productId' element={<SinglePage />} />
+              <Route path='new' element={<NewPage inputs={userInputs} title="Add New User" />} />
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Main>
   );
 }
 
